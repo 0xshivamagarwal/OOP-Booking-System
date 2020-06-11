@@ -1,21 +1,20 @@
 package Reservation;
 
-public class Bus {
-	
-	String companyName;
-	String busNumber;
-	String source;
-	String destination;
-	String startTime;
-	String endTime;
-	boolean[] frequency; // [Su, M, T, W, Th, F, Sat] 
-	int capacity;
-	int reservedSeats;
-	
-	public Bus(String companyName, String busNumber, String source, String destination, String startTime,
-			String endTime, boolean[] frequency, int capacity) {
-		this.companyName = companyName;
-		this.busNumber = busNumber;
+public class Bus extends Vehicle{
+	protected int fare;
+	protected String source;
+	protected String destination;
+	protected String startTime;
+	protected String endTime;
+	protected  boolean[] frequency; // [Su, M, T, W, Th, F, Sat] 
+	protected int capacity;
+	protected int reservedSeats;
+
+
+	public Bus(String companyName, String vehicleID, String source, String destination, String startTime,
+			String endTime, boolean[] frequency, int capacity, int fare){
+		super(companyName,vehicleID,true);
+		this.fare = fare;
 		this.source = source;
 		this.destination = destination;
 		this.startTime = startTime;
@@ -24,17 +23,23 @@ public class Bus {
 		this.capacity = capacity;
 		this.reservedSeats = 0;
 	}
-	public String getCompanyName() {
-		return companyName;
+	public Bus(boolean ac, String companyName, String vehicleID, String source, String destination, String startTime,
+			String endTime, boolean[] frequency, int capacity, int fare){
+		super(companyName,vehicleID,ac);
+		this.fare = fare;
+		this.source = source;
+		this.destination = destination;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.frequency = frequency;
+		this.capacity = capacity;
+		this.reservedSeats = 0;
 	}
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setfare(int fare){
+		this.fare = fare;
 	}
-	public String getBusNumber() {
-		return busNumber;
-	}
-	public void setBusNumber(String busNumber) {
-		this.busNumber = busNumber;
+	public int getfare(){
+		return this.fare;
 	}
 	public String getSource() {
 		return source;
@@ -78,10 +83,10 @@ public class Bus {
 	public void setReservedSeats(int reservedSeats) {
 		this.reservedSeats = reservedSeats;
 	}
-	@Override
-	public String toString() {
-		return "\nBus Company Name : " + companyName + "\nBus Number : " + busNumber + "\nSource : " + source + "\nDestination : "
-				+ destination + "\nDeparture Time : " + startTime + "\nArrival Time : " + endTime + "\nVacant Seats : " + (capacity-reservedSeats) + "\n";
+	public String getCompanyName() {
+		return companyName;
 	}
-	
+	public String getvehicleID(){
+		return vehicleID;
+	}
 }
