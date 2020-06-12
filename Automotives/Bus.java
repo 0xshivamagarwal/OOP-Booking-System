@@ -1,4 +1,4 @@
-package Reservation;
+package Automotives;
 
 public class Bus extends Vehicle{
 	protected int fare;

@@ -1,4 +1,4 @@
-package Reservation;
+package Automotives;
 
 public abstract class Vehicle{
 
