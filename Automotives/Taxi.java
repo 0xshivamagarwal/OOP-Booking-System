@@ -1,9 +1,7 @@
 package Automotives;
 
 public class Taxi extends Vehicle{
-	
 	public boolean isAvailable;
-	
 	public Taxi(String vehicleID, String cityName){
 		super(cityName,vehicleID,true);
 		this.isAvailable = true;
@@ -17,6 +15,40 @@ public class Taxi extends Vehicle{
 	public boolean getisAvailable(){
 		return this.isAvailable;
 	}
+	public void offloadtaxi(){
+		this.isAvailable = true;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public String getvehicleID(){
+		return vehicleID;
+	}
+	
+	public static class ac_taxi{
+		private int rate = 15;
+		public int getrate(){
+			return rate;
+		}
+	}
+
+	public class nonac_taxi{
+		private int rate = 10;
+		public int getrate(){
+			return rate;
+		}
+	}
+
+	public int getFare(int distance){
+		if(ac){
+			return distance*ac_taxi.getrate();
+		}
+		else{
+			nonac_taxi obj = new nonac_taxi()
+			return distance*obj.getrate();
+		}
+	}
+
 	public void bookTaxi(int distance){
 		if(this.isAvailable){
 			this.isAvailable = false;
@@ -27,23 +59,4 @@ public class Taxi extends Vehicle{
 			System.out.println("Taxi booking failed");
 		}
 	}
-	public void offloadtaxi(){
-		this.isAvailable = true;
-	}
-	public String getCompanyName() {
-		return companyName;
-	}
-	public String getvehicleID(){
-		return vehicleID;
-	}
-	public int getFare(int distance){
-		if(ac){
-			return distance*15;
-		}
-		else{
-			return distance*9;
-		}
-	}
-
-
 }

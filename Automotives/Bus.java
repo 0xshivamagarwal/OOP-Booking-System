@@ -2,8 +2,8 @@ package Automotives;
 
 public class Bus extends Vehicle{
 	protected int fare;
-	protected String source;
-	protected String destination;
+	protected char source;
+	protected char destination;
 	protected String startTime;
 	protected String endTime;
 	protected  boolean[] frequency; // [Su, M, T, W, Th, F, Sat] 
@@ -11,82 +11,96 @@ public class Bus extends Vehicle{
 	protected int reservedSeats;
 
 
-	public Bus(String companyName, String vehicleID, String source, String destination, String startTime,
-			String endTime, boolean[] frequency, int capacity, int fare){
+	public Bus(String companyName, String vehicleID, char source, char destination, String startTime,
+			String endTime, boolean[] frequency){
 		super(companyName,vehicleID,true);
-		this.fare = fare;
 		this.source = source;
 		this.destination = destination;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.frequency = frequency;
-		this.capacity = capacity;
+		this.capacity = 100;
 		this.reservedSeats = 0;
+		this.setfare();
 	}
-	public Bus(boolean ac, String companyName, String vehicleID, String source, String destination, String startTime,
-			String endTime, boolean[] frequency, int capacity, int fare){
+	public Bus(boolean ac, String companyName, String vehicleID, char source, char destination, String startTime,
+			String endTime, boolean[] frequency){
 		super(companyName,vehicleID,ac);
-		this.fare = fare;
 		this.source = source;
 		this.destination = destination;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.frequency = frequency;
-		this.capacity = capacity;
+		this.capacity = 100;
 		this.reservedSeats = 0;
+		this.setfare();
 	}
-	public void setfare(int fare){
-		this.fare = fare;
-	}
+
 	public int getfare(){
 		return this.fare;
 	}
-	public String getSource() {
+	public char getSource() {
 		return source;
 	}
-	public void setSource(String source) {
-		this.source = source;
-	}
-	public String getDestination() {
+	public char getDestination() {
 		return destination;
-	}
-	public void setDestination(String destination) {
-		this.destination = destination;
 	}
 	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
 	public String getEndTime() {
 		return endTime;
-	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
 	}
 	public boolean[] getFrequency() {
 		return frequency;
 	}
-	public void setFrequency(boolean[] frequency) {
-		this.frequency = frequency;
-	}
 	public int getCapacity() {
 		return capacity;
 	}
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}
 	public int getReservedSeats() {
 		return reservedSeats;
-	}
-	public void setReservedSeats(int reservedSeats) {
-		this.reservedSeats = reservedSeats;
 	}
 	public String getCompanyName() {
 		return companyName;
 	}
 	public String getvehicleID(){
 		return vehicleID;
+	}
+	public static class ac_bus{
+		private int rate = 500;
+		public int getrate(){
+			return rate;
+		}
+	}
+
+	public class nonac_bus{
+		private int rate = 250;
+		public int getrate(){
+			return rate;
+		}
+	}	
+	public boolean bookseats(int numofseats){
+		if(this.capacity - this.reservedSeats >= numofseats){
+			this.reservedSeats = this.reservedSeats + numofseats;
+			System.out.println("Your fare was "+ this.getfare())
+			return true;
+		}
+		return false;
+	}
+	private void setfare(){
+		char[] ch = {'A', 'B', 'C', 'D', 'E'};
+		int src=-1; int dst=-1;
+			for(int i = 0; i < 5; i++){
+				if(ch[i]==this.source)	src = i;
+				if(ch[i]==this.destination)	dst = i;
+			}
+		int distance = abs(src - dst);
+		if(ac){
+			this.fare = distance * ac_bus.getrate();
+		}
+		else{
+			nonac_bus obje = new nonac_bus();
+			this.fare = distance * obje.getrate()
+		}
 	}
 }
