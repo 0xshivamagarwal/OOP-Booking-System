@@ -10,7 +10,7 @@ public class Taxi extends Vehicle{
 	}
 
 	public Taxi(boolean ac, String cityName, String vehicleID){
-		super(companyName,vehicleID,ac);
+		super(cityName,vehicleID,ac);
 		this.isAvailable = true;
 	}
 
@@ -30,7 +30,7 @@ public class Taxi extends Vehicle{
 	public void offloadtaxi(){
 		this.isAvailable = true;
 	}
-	public String getCityName() {
+	public String getCompanyName() {
 		return companyName;
 	}
 	public String getvehicleID(){
