@@ -1,10 +1,11 @@
 package Sys;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
-interface User {
+public class User implements UserInterface {
 	
-	HashMap<Integer, Booking> bookingHistory = new HashMap<Integer, Booking>();
+	HashMap<Integer, BookingInterface> bookingHistory = new HashMap<Integer, BookingInterface>();
 	protected String username;
 	private String password;
 	String name = null;
@@ -13,7 +14,7 @@ interface User {
 
 	//Called to create a new user
 	public User(String ... u) {
-		this.bookingHistory = new HashMap<Integer, Booking>();
+		this.bookingHistory = new HashMap<Integer, BookingInterface>();
 		this.username = u[0];
 		this.password = u[1];
 		if(u.length > 2) {
@@ -27,17 +28,6 @@ interface User {
 		}
 		if(u.length > 5) {
 			//Write exception here
-		}
-	}
-	
-	public void changePassword(String oldpassword) {
-		if(oldpassword == this.password) {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Enter new Password");
-			this.password = sc.nextline();
-			System.out.println("Password Changed successfully");
-		} else {
-			System.out.println("Password incorrect");
 		}
 	}
 
@@ -56,17 +46,34 @@ interface User {
 	public String getContactNo() {
 		return this.contactNo;
 	}
-
-	public HashMap<Integer, String> getBookingHistory() {
-		return this.bookingHistory;
-	}
 	
 	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
 	}
+
+	public HashMap<Integer, BookingInterface> getBookingHistory() {
+		return this.bookingHistory;
+	}
 	
-	public void addBooking(int key, Booking b) {
-		this.bookingHistory.put(key,b);
+	public void createBooking(int id, BookingInterface booking) {
+		this.bookingHistory.put(id, booking);
+	}
+
+	public void deleteBooking(int id) {
+		this.bookingHistory.remove(id);
+		System.out.println("Booking ID: " + id + " successfully deleted");
+	}
+	
+	public void changePassword(String oldpassword) {
+		if(oldpassword == this.password) {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Enter new Password");
+			this.password = sc.nextLine();
+			System.out.println("Password Changed successfully");
+			sc.close();
+		} else {
+			System.out.println("Password incorrect");
+		}
 	}
 
 }

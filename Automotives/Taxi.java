@@ -3,43 +3,37 @@ package Automotives;
 public class Taxi extends Vehicle {
 	
 	public static class ACTaxi {
-		
-		private int rate = 15;
-		
-		public int getRate() {
+		private double rate = 15;
+		public double getRate() {
 			return this.rate;
 		}
-
-		public void setRate(int rate) {
+		public void setRate(double rate) {
 			this.rate = rate;
 		}
-
 	}
 
 	public static class NonACTaxi {
-
-		private int rate = 10;
-		
-		public int getRate() {
+		private double rate = 10;
+		public double getRate() {
 			return this.rate;
 		}
-
-		public void setRate(int rate) {
+		public void setRate(double rate) {
 			this.rate = rate;
 		}
-		
 	}
 
 	public boolean isAvailable;
 	
-	public Taxi(String vehicleID, String cityName) {
-		super(cityName, vehicleID, true);
+	public Taxi(String vehicleID, String companyName, String source, String startTime) {
+		super(vehicleID, companyName, source, null, startTime, null, true);
 		this.isAvailable = true;
+		this.source = source;
 	}
 
-	public Taxi(String vehicleID, String cityName, boolean ac) {
-		super(cityName, vehicleID, ac);
+	public Taxi(String vehicleID, String companyName, String source, String startTime, boolean ac) {
+		super(vehicleID, companyName, source, null, startTime, null, ac);
 		this.isAvailable = true;
+		this.source = source;
 	}
 
 	public boolean getIsAvailable() {
@@ -49,29 +43,24 @@ public class Taxi extends Vehicle {
 	public void offloadTaxi() {
 		this.isAvailable = true;
 	}
-	
-	public String getCompanyName() {
-		return this.companyName;
-	}
-	
-	public String getVehicleID() {
-		return this.vehicleID;
-	}
 
-	public int getFare(int distance) {
-		if(this.ac) {
-			return ACTaxi.getRate() * distance;
+	public double getFare(int distance) {
+		if (this.ac) {
+			return new ACTaxi().getRate() * distance;
 		}
 		return new NonACTaxi().getRate() * distance;
 	}
 
-	public void bookTaxi(int distance) {
-		if(this.isAvailable) {
+	@Override
+	public boolean bookSeats(int distance) {
+		if (this.isAvailable) {
 			this.isAvailable = false;
 			System.out.println("The taxi is booked");
-			System.out.println("Your fare is " + this.getFare(distance));
-		} else {
-			System.out.println("Taxi not available");
+			System.out.println("Fare: " + this.getFare(distance));
+			return true;
 		}
+		System.out.println("Taxi not available");
+		return false;
 	}
+	
 }

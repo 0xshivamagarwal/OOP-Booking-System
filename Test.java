@@ -1,126 +1,55 @@
-package Reservation;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
+
+import Sys.Booking;
+import Sys.BookingInterface;
+import Sys.ShowBookings;
+import Sys.User;
+import Sys.UserInterface;
+import Automotives.Bus;
+import Automotives.Vehicle;
 
 public class Test {
 	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		HashMap<String, Bus> busInfo = new HashMap<String, Bus>();
-		HashMap<String, User> userInfo = new HashMap<String, User>();
-		int q = Integer.parseInt(br.readLine());
-		for(; q>0; q--) {
-			String[] in = br.readLine().trim().split(" ");
-			String function = in[0];
-			if(function.compareTo("create-bus") == 0) {
-				try {
-					String busNo = in[1];
-					String busCompany = in[2];
-					String source = in[3];
-					String dest = in[4];
-					String start = in[5];
-					String end = in[6];
-					int capacity = Integer.parseInt(in[7]);
-					String freq = in[8];
-					boolean[] frequency = new boolean[7];
-					for(int i=0; i<7; i++) {
-						if(freq.charAt(i) == '1') {
-							frequency[i] = true;
-						} else {
-							frequency[i] = false;
-						}
-					}
-					Bus bus = new Bus(busCompany, busNo, source, dest, start, end, frequency, capacity);
-					if(!busInfo.containsKey(busNo)) {
-						busInfo.put(busNo, bus);
-						System.out.println("success");
-					} else {
-						System.out.println("failure");
-					}
-				} catch (Exception e) {
-					System.out.println("failure");
-				}
-			} else if(function.compareTo("search-bus") == 0) {
-				HashMap<String, Integer> days = new HashMap<String, Integer>();
-				days.put("Sunday", 0);
-				days.put("Monday", 1);
-				days.put("Tuesday", 2);
-				days.put("Wednesday", 3);
-				days.put("Friday", 4);
-				days.put("Saturday", 5);
-				days.put("Sunday", 6);
-				String source = in[1];
-				String dest = in[2];
-				int day = days.get(in[3]);
-				ArrayList<String> buses = new ArrayList<String>(busInfo.keySet());
-				ArrayList<Bus> searchRes = new ArrayList<Bus>();
-				for(String busNo : buses) {
-					Bus bus = busInfo.get(busNo);
-					if(bus.source.compareTo(source)==0 && bus.destination.compareTo(dest)==0 && bus.frequency[day]) {
-						searchRes.add(bus);
-					}
-				}
-				if(searchRes.size() == 0) {
-					System.out.println("No Bus Found!!");
-				} else {
-					System.out.println(searchRes);
-				}
-			} else if(function.compareTo("create-user") == 0) {
-				try {
-					String name = in[1];
-					int age = Integer.parseInt(in[2]);
-					String contactNo = in[3];
-					User user = new User(name, age, contactNo);
-					if(!userInfo.containsKey(contactNo)) {
-						userInfo.put(contactNo, user);
-						System.out.println("success");
-					} else {
-						System.out.println("failure");
-					}
-				} catch(Exception e) {
-					System.out.println("failure");
-				}
-			} else if(function.compareTo("reserve-seat") == 0) {
-				try {
-					String busNo = in[1];
-					int nSeats = Integer.parseInt(in[2]);
-					String userContactNo = in[3];
-					if(busInfo.containsKey(busNo) && userInfo.containsKey(userContactNo)) {
-						Bus bus = busInfo.get(busNo);
-						User user = userInfo.get(userContactNo);
-						int vacantSeats = bus.capacity - bus.reservedSeats;
-						if(vacantSeats >= nSeats) {
-							bus.setReservedSeats(bus.reservedSeats+nSeats);
-							Booking b = new Booking(bus.companyName, bus.busNumber, bus.source, bus.destination, bus.startTime, bus.endTime, nSeats);
-							int bookingId = b.bookingId;
-							HashMap<Integer, Booking> bookingHistory = user.bookingHistory; 
-							bookingHistory.put(bookingId, b);
-							user.setBookingHistory(bookingHistory);
-							System.out.println("Your Booking Id : " + bookingId);
-						} else {
-							System.out.println("failure");
-						}
-					} else {
-						System.out.println("failure");
-					}
-				} catch(Exception e) {
-					System.out.println("failure");
-				}
-			} else if(function.compareTo("view-reservations") == 0) {
-				String userContactNo = in[1];
-				if(userInfo.containsKey(userContactNo)) {
-					User user = userInfo.get(userContactNo);
-					HashMap<Integer, Booking> bookingHistory = user.bookingHistory;
-					System.out.println(bookingHistory);
-				} else {
-					System.out.println("failure");
-				}
-			} else {
-				System.out.println("Work in Progress!");
-			}
+		System.out.println();
+		HashMap<String, UserInterface> userInfo = new HashMap<String, UserInterface>();
+		HashMap<String, Vehicle> vehicleInfo = new HashMap<String, Vehicle>();
+		
+		// Temp Users
+		UserInterface user;
+		user = new User("admin", "password");
+		userInfo.put(user.getUsername(), user);
+		user = new User("temp", "123456");
+		userInfo.put(user.getUsername(), user);
+
+		// Temp Vehicles
+		Vehicle vehicle;
+		vehicle = new Bus("1", "Company A", "A", "B", "10:00", "18:00", 100, 25, new boolean[] {true, false, true, false, true, false, true});
+		vehicleInfo.put(vehicle.getVehicleID(), vehicle);
+		vehicle = new Bus("2", "Company B", "B", "A", "15:00", "23:00", 100, 25, new boolean[] {false, true, false, true, false, true, false});
+		vehicleInfo.put(vehicle.getVehicleID(), vehicle);
+
+		// Book Bus Seats
+		// user input: vehicleID, numSeats, username
+		user = userInfo.get("temp");
+		vehicle = vehicleInfo.get("1");
+		int numSeats = 10;
+		if (vehicle.bookSeats(numSeats)) {
+			BookingInterface booking = new Booking(numSeats, vehicle.getCompanyName(), vehicle.getSource(), vehicle.getDestination(), vehicle.getStartTime(), vehicle.getEndTime());
+			user.createBooking(booking.getBookingId(), booking);
 		}
+
+		// Show Bookings For Admin
+		user = userInfo.get("admin");
+		// user input: username
+		String username = "temp";
+		if (userInfo.containsKey(username)) {
+			UserInterface userTemp = userInfo.get(username);
+			ShowBookings s = new ShowBookings();
+			s.show(userTemp);
+		} else {
+			System.out.println("User doesn't exist!!");
+		}
+
 	}
 }
