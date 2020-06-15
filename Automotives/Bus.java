@@ -1,19 +1,43 @@
 package Automotives;
 
-public class Bus extends Vehicle{
+public class Bus extends Vehicle {
+
+	public static class ACBus {
+		private int rate = 500;
+
+		public int getRate() {
+			return this.rate;
+		}
+
+		public void setRate(int rate) {
+			this.rate = rate;
+		}
+	}
+
+	public class NonACBus {
+		private int rate = 250;
+
+		public int getRate() {
+			return this.rate;
+		}
+
+		public void setRate(int rate) {
+			this.rate = rate;
+		}
+	}
+
 	protected int fare;
 	protected char source;
 	protected char destination;
 	protected String startTime;
 	protected String endTime;
-	protected  boolean[] frequency; // [Su, M, T, W, Th, F, Sat] 
+	protected boolean[] frequency; // [Su, M, T, W, Th, F, Sat] 
 	protected int capacity;
 	protected int reservedSeats;
 
-
-	public Bus(String companyName, String vehicleID, char source, char destination, String startTime,
-			String endTime, boolean[] frequency){
-		super(companyName,vehicleID,true);
+	public Bus(String companyName, String vehicleID, char source, char destination,
+				String startTime, String endTime, boolean[] frequency) {
+		super(companyName, vehicleID, true);
 		this.source = source;
 		this.destination = destination;
 		this.startTime = startTime;
@@ -21,11 +45,11 @@ public class Bus extends Vehicle{
 		this.frequency = frequency;
 		this.capacity = 100;
 		this.reservedSeats = 0;
-		this.setfare();
 	}
-	public Bus(boolean ac, String companyName, String vehicleID, char source, char destination, String startTime,
-			String endTime, boolean[] frequency){
-		super(companyName,vehicleID,ac);
+
+	public Bus(String companyName, String vehicleID, char source, char destination,
+				String startTime, String endTime, boolean[] frequency, boolean ac) {
+		super(companyName, vehicleID, ac);
 		this.source = source;
 		this.destination = destination;
 		this.startTime = startTime;
@@ -33,74 +57,62 @@ public class Bus extends Vehicle{
 		this.frequency = frequency;
 		this.capacity = 100;
 		this.reservedSeats = 0;
-		this.setfare();
 	}
 
-	public int getfare(){
+	public int getFare() {
 		return this.fare;
 	}
+
 	public char getSource() {
-		return source;
-	}
-	public char getDestination() {
-		return destination;
-	}
-	public String getStartTime() {
-		return startTime;
-	}
-	public String getEndTime() {
-		return endTime;
-	}
-	public boolean[] getFrequency() {
-		return frequency;
-	}
-	public int getCapacity() {
-		return capacity;
-	}
-	public int getReservedSeats() {
-		return reservedSeats;
-	}
-	public String getCompanyName() {
-		return companyName;
-	}
-	public String getvehicleID(){
-		return vehicleID;
-	}
-	public static class ac_bus{
-		private int rate = 500;
-		public int getrate(){
-			return rate;
-		}
+		return this.source;
 	}
 
-	public class nonac_bus{
-		private int rate = 250;
-		public int getrate(){
-			return rate;
-		}
-	}	
-	public boolean bookseats(int numofseats){
-		if(this.capacity - this.reservedSeats >= numofseats){
-			this.reservedSeats = this.reservedSeats + numofseats;
-			System.out.println("Your fare was "+ this.getfare())
+	public char getDestination() {
+		return this.destination;
+	}
+
+	public String getStartTime() {
+		return this.startTime;
+	}
+
+	public String getEndTime() {
+		return this.endTime;
+	}
+	
+	public boolean[] getFrequency() {
+		return this.frequency;
+	}
+	
+	public int getCapacity() {
+		return this.capacity;
+	}
+	
+	public int getReservedSeats() {
+		return this.reservedSeats;
+	}
+	
+	public String getCompanyName() {
+		return this.companyName;
+	}
+	
+	public String getvehicleID() {
+		return this.vehicleID;
+	}
+
+	public boolean bookSeats(int numOfSeats) {
+		if(this.capacity - this.reservedSeats >= numOfSeats) {
+			this.reservedSeats = this.reservedSeats + numOfSeats;
+			System.out.println("Fare: " + this.getFare());
 			return true;
 		}
 		return false;
 	}
-	private void setfare(){
-		char[] ch = {'A', 'B', 'C', 'D', 'E'};
-		int src=-1; int dst=-1;
-			for(int i = 0; i < 5; i++){
-				if(ch[i]==this.source)	src = i;
-				if(ch[i]==this.destination)	dst = i;
-			}
-		int distance = abs(src - dst);
-		if(ac){
-			this.fare = distance * ac_bus.getrate();
+
+	private void setFare(int distance) {
+		if (ac) {
+			this.fare = ACBus.getRate() * distance;
 		}
-		else{
-			nonac_bus obje = new nonac_bus();
-			this.fare = distance * obje.getrate()
-		}
+		this.fare = new NonACBus().getRate() * distance;
 	}
+
 }
