@@ -93,7 +93,7 @@ public class Test {
 				System.out.print("Enter username: ");
 				String uName = br.readLine();
 				String uPword = String.valueOf(System.console().readPassword("Enter Password: "));
-				
+
 				clearScreen();
 				if (!userInfo.containsKey(uName) || !uPword.equals(userInfo.get(uName).getPassword())) {
 					System.out.println("Wrong Username/Password. Please try again later.....");
@@ -124,8 +124,7 @@ public class Test {
 						String op1 = br.readLine();
 						clearScreen();
 						if (op1.equals("1")) {
-							System.out.print("Enter New Password: ");
-							String newPassword = br.readLine();
+							String newPassword = String.valueOf(System.console().readPassword("Enter New Password: "));
 							clearScreen();
 							if (currentUser.setPassword(newPassword)) {
 								System.out.println("Password Changed Successfully!");
