@@ -1,26 +1,6 @@
 package Automotives;
 
-public class Bus extends Vehicle {
-
-	public static class ACBus {
-		private double rate = 1; // Rs per Kilometer
-		public double getRate() {
-			return this.rate;
-		}
-		public void setRate(double rate) {
-			this.rate = rate;
-		}
-	}
-
-	public class NonACBus {
-		private double rate = 0.5; // Rs per Kilometer
-		public double getRate() {
-			return this.rate;
-		}
-		public void setRate(double rate) {
-			this.rate = rate;
-		}
-	}
+public class Bus extends Vehicle implements ACBus, NonACBus {
 
 	protected boolean[] frequency; // [Su, M, T, W, Th, F, Sat] 
 	protected int capacity;
@@ -41,6 +21,7 @@ public class Bus extends Vehicle {
 		super(vehicleID, companyName, source, destination, startTime, endTime, ac);
 		this.frequency = frequency;
 		this.capacity = capacity;
+		this.distance = distance;
 		this.reservedSeats = 0;
 	}
 	
@@ -58,20 +39,18 @@ public class Bus extends Vehicle {
 
 	public double getFare() {
 		if (this.ac) {
-			return new ACBus().getRate() * this.distance;
+			return ACBus.getRate() * this.distance;
 		}
-		return new NonACBus().getRate() * this.distance;
+		return NonACBus.getRate() * this.distance;
 	}
 
 	@Override
 	public boolean bookSeats(int numOfSeats) {
 		if (this.capacity - this.reservedSeats >= numOfSeats) {
 			this.reservedSeats = this.reservedSeats + numOfSeats;
-			System.out.println("The seats are booked");
 			System.out.println("Fare: " + numOfSeats * this.getFare());
 			return true;
 		}
-		System.out.println("Seats are not available");
 		return false;
 	}
 

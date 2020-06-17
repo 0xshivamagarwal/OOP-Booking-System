@@ -44,22 +44,20 @@ public class Taxi extends Vehicle {
 		this.isAvailable = true;
 	}
 
-	public double getFare(int distance) {
+	public double getFare(int duration) {
 		if (this.ac) {
-			return new ACTaxi().getRate() * distance;
+			return new ACTaxi().getRate() * duration;
 		}
-		return new NonACTaxi().getRate() * distance;
+		return new NonACTaxi().getRate() * duration;
 	}
 
 	@Override
-	public boolean bookSeats(int distance) {
+	public boolean bookSeats(int duration) {
 		if (this.isAvailable) {
 			this.isAvailable = false;
-			System.out.println("The taxi is booked");
-			System.out.println("Fare: " + this.getFare(distance));
+			System.out.println("Fare: " + this.getFare(duration));
 			return true;
 		}
-		System.out.println("Taxi not available");
 		return false;
 	}
 	

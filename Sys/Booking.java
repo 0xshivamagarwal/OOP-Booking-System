@@ -1,6 +1,6 @@
 package Sys;
 
-public class Booking implements BookingInterface {
+public class Booking {
 
 	String vtype;
 	int bookingId;
@@ -11,7 +11,7 @@ public class Booking implements BookingInterface {
 	String endTime;
 	int nSeats;
 	
-	public Booking(int nSeats, String ... s ) {
+	public Booking(int nSeats, String ... s) {
 		// String companyName, String source, String destination, String startTime, String endTime
 		this.vtype = "Bus";
  		this.bookingId = (int)(Math.random()*Math.pow(10, 6));
@@ -97,8 +97,8 @@ public class Booking implements BookingInterface {
 			return String.format("Booking ID: %d\nBooking Type: %s\nBooking Company: %s\nSource: %s\nDeparture Time: %s\nDestination: %s\nArrival Time: %s\nNumber of Seats: %d",
 				this.bookingId, this.vtype, this.companyName, this.source, this.startTime, this.destination, this.endTime, this.nSeats);
 		}
-		return String.format("Booking ID: %d\nBooking Type: %s\nBooking Company: %s\nDeparture Time: %s",
-			this.bookingId, this.vtype, this.companyName, this.startTime);
+		return String.format("Booking ID: %d\nBooking Type: %s\nBooking Company: %s\nSource: %s\nDeparture Time: %s",
+			this.bookingId, this.vtype, this.companyName, this.source, this.startTime);
 	}
 
 }

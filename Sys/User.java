@@ -1,20 +1,28 @@
 package Sys;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
-public class User implements UserInterface {
+public class User {
 	
-	HashMap<Integer, BookingInterface> bookingHistory = new HashMap<Integer, BookingInterface>();
+	HashMap<Integer, Booking> bookingHistory;
 	protected String username;
 	private String password;
-	String name = null;
-	String age = null;
-	String contactNo = null;
+	String name;
+	String age;
+	String contactNo;
 
 	//Called to create a new user
+	public User() {
+		this.bookingHistory = null;
+		this.username = null;
+		this.password = null;
+		this.name = null;
+		this.age = null;
+		this.contactNo = null;
+	}
+
 	public User(String ... u) {
-		this.bookingHistory = new HashMap<Integer, BookingInterface>();
+		this.bookingHistory = new HashMap<Integer, Booking>();
 		this.username = u[0];
 		this.password = u[1];
 		if(u.length > 2) {
@@ -25,9 +33,6 @@ public class User implements UserInterface {
 		}
 		if(u.length > 4) {
 			this.contactNo = u[4];
-		}
-		if(u.length > 5) {
-			//Write exception here
 		}
 	}
 
@@ -51,33 +56,54 @@ public class User implements UserInterface {
 		return this.contactNo;
 	}
 	
-	public void setContactNo(String contactNo) {
-		this.contactNo = contactNo;
-	}
-
-	public HashMap<Integer, BookingInterface> getBookingHistory() {
-		return this.bookingHistory;
+	public boolean setPassword(String password) {
+		try {
+			if (password.length() < 6) {
+				throw new Exception();
+			}
+			this.password = password;
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 	
-	public void createBooking(int id, BookingInterface booking) {
+	public boolean setContactNo(String contactNo) {
+		try {
+			if (contactNo.length() != 10) {
+				throw new Exception();
+			}
+			this.contactNo = contactNo;
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+	public HashMap<Integer, Booking> getBookingHistory() {
+		return this.bookingHistory;
+	}
+
+	public void createBooking(Booking booking) {
+		this.bookingHistory.put(booking.getBookingId(), booking);
+		System.out.println("Booking Created!");
+		System.out.println("Your Booking ID: " + booking.getBookingId());
+	}
+	
+	public void createBooking(int id, Booking booking) {
 		this.bookingHistory.put(id, booking);
+		System.out.println("Booking Created!");
+		System.out.println("Your Booking ID: " + id);
 	}
 
 	public void deleteBooking(int id) {
 		this.bookingHistory.remove(id);
 		System.out.println("Booking ID: " + id + " successfully deleted");
 	}
-	
-	public void changePassword(String oldpassword) {
-		if(oldpassword.equals(this.password)) {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Enter new Password");
-			this.password = sc.nextLine();
-			System.out.println("Password Changed successfully");
-			sc.close();
-		} else {
-			System.out.println("Password incorrect");
-		}
+
+	public void deleteBooking() {
+		System.out.println("Booking IDs: " + this.bookingHistory.keySet() + " successfully deleted");
+		this.bookingHistory.clear();
 	}
 
 }
