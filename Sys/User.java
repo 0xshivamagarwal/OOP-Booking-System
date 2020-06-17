@@ -35,7 +35,11 @@ public class User implements UserInterface {
 		return this.username;
 	}
 	
-	public String getName() {
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getName() {
 		return this.name;
 	}
 	
@@ -65,7 +69,7 @@ public class User implements UserInterface {
 	}
 	
 	public void changePassword(String oldpassword) {
-		if(oldpassword == this.password) {
+		if(oldpassword.equals(this.password)) {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Enter new Password");
 			this.password = sc.nextLine();

@@ -52,6 +52,10 @@ public abstract class Vehicle {
 		return this.endTime;
 	}
 
+    public boolean getAC(){
+        return this.ac;
+    }
+
 	public abstract boolean bookSeats(int x);
 
 }

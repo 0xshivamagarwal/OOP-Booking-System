@@ -1,19 +1,17 @@
 package Sys;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class ShowBookings implements UserInterface, BookingInterface {
 
-	public void show(UserInterface user) {
+	public void show(UserInterface user, int id) {
 
-		Scanner in = new Scanner(System.in);
 
 		HashMap<Integer, BookingInterface> bookingHistory = user.getBookingHistory();
-		System.out.println(bookingHistory.keySet());
+		/*System.out.println(bookingHistory.keySet());
 		
 		System.out.println("Enter Booking ID: ");
-		int id = in.nextInt();
+		int id = in.nextInt();*/
 		
 		if (bookingHistory.containsKey(id)) {
 			BookingInterface b = bookingHistory.get(id);
@@ -22,7 +20,7 @@ public class ShowBookings implements UserInterface, BookingInterface {
 			System.out.println("No booking with this ID exists...");
 		}
 
-		in.close();
+		
 
 	}
 
@@ -41,7 +39,21 @@ public class ShowBookings implements UserInterface, BookingInterface {
 		return null;
 	}
 
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
 	@Override
+    public String getContactNo() {
+        return null;
+    }
+
+    @Override
+    public void setContactNo(String ContactNo) {
+    }
+
+    @Override
 	public int getBookingId() {
 		return 0;
 	}
@@ -49,5 +61,9 @@ public class ShowBookings implements UserInterface, BookingInterface {
 	@Override
 	public void createBooking(int id, BookingInterface booking) {
 	}
+
+    @Override
+    public void changePassword(String oldpassword) {
+    } 
 
 }
