@@ -92,9 +92,8 @@ public class Test {
 
 				System.out.print("Enter username: ");
 				String uName = br.readLine();
-
-				System.out.print("Enter Password: ");
-				String uPword = br.readLine();
+				String uPword = String.valueOf(System.console().readPassword("Enter Password: "));
+				
 				clearScreen();
 				if (!userInfo.containsKey(uName) || !uPword.equals(userInfo.get(uName).getPassword())) {
 					System.out.println("Wrong Username/Password. Please try again later.....");
