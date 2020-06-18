@@ -403,10 +403,10 @@ public class Test {
 			if (System.getProperty("os.name").contains("Windows")) {
 				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 			} 
-            else if(System.getProperty("os.name").contains("Linux")){
-                System.out.print("\033\143");
-            }
-            else {
+            		else if(System.getProperty("os.name").contains("Linux")){
+                		System.out.print("\033\143");
+            		}
+            		else {
 				Runtime.getRuntime().exec("clear");
 			}
 		} catch (Exception e) {
