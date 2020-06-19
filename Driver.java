@@ -9,7 +9,7 @@ import Automotives.Bus;
 import Automotives.Taxi;
 import Automotives.Vehicle;
 
-public class Test {
+public class Driver {
 	public static void main(String[] args) throws IOException {
 		clearScreen();
 		HashMap<String, User> userInfo = new HashMap<String, User>();
@@ -51,7 +51,7 @@ public class Test {
 		vehicle = new Bus("11", "Company 2", "D", "B", "16:00", "21:00", 130, 25,
 				new boolean[] { false, false, false, true, false, true, false }, false);
 		vehicleInfo.put(vehicle.getVehicleID(), vehicle);
-		vehicle = new Bus("12", "Company 4", "D", "C", "18:00", "00:00", 150, 0,
+		vehicle = new Bus("12", "Company 4", "D", "C", "18:00", "00:00", 150, 25,
 				new boolean[] { true, true, false, true, true, true, false });
 		vehicleInfo.put(vehicle.getVehicleID(), vehicle);
 
@@ -243,12 +243,41 @@ public class Test {
 								continue;
 							}
 						} else if (op1.equals("2")) {
-							System.out.print("Enter pickup location: ");
-							String source = br.readLine();
-							System.out.print("\nEnter pickup time (in hh:mm): ");
-							String startTime = br.readLine();
-							System.out.print("\nEnter number of hours you want to use the taxi: ");
-							int duration = Integer.parseInt(br.readLine());
+							String source, startTime;
+							int duration;
+							while (true) {
+								System.out.print("Enter pickup location: ");
+								source = br.readLine();
+								if (source.length() > 0) {
+									break;
+								} else {
+									System.out.println("Wrong Input, Try again\n");
+								}
+							}
+							while (true) {
+								System.out.print("\nEnter pickup time (in hh:mm): ");
+								startTime = br.readLine();
+								if (startTime.length() == 5) {
+									try {
+										Integer.parseInt(startTime.split(":")[0]);
+										Integer.parseInt(startTime.split(":")[1]);
+										break;
+									} catch (Exception e) {
+										System.out.println("Wrong Input, Try again\n");
+									}
+								} else {
+									System.out.println("Wrong Input, Try again\n");
+								}
+							}
+							while (true) {
+								System.out.print("\nEnter number of hours you want to use the taxi: ");
+								try {
+									duration = Integer.parseInt(br.readLine());
+									break;
+								} catch (Exception e) {
+									System.out.println("Wrong Input, Try again\n");
+								}
+							}
 							System.out.print("\nDo you want AC Taxi? (Y/n): ");
 							String ac_inp = br.readLine();
 							clearScreen();
@@ -345,8 +374,7 @@ public class Test {
 				System.out.println("###############################################################\n");
 				System.out.print("Enter Username: ");
 				String username = br.readLine();
-				System.out.print("Enter Password: ");
-				String password = br.readLine();
+				String password = String.valueOf(System.console().readPassword("Enter Password: "));
 				if (username.length() <= 0 || password.length() <= 0) {
 					System.out.println("\nUsername/Password can not be empty!!");
 					System.out.print("\nPress any key to go back...");
@@ -365,15 +393,42 @@ public class Test {
 				if (name.length() == 0) {
 					name = null;
 				}
-				System.out.print("Enter Age, if not available press Enter: ");
-				String age = br.readLine();
-				if (age.length() == 0) {
-					age = null;
+				String age, contact;
+				while (true) {
+					System.out.print("Enter Age, if not available press Enter: ");
+					age = br.readLine();
+					if (age.length() == 0) {
+						age = null;
+						break;
+					} else {
+						try {
+							if (Integer.parseInt(age) > 0) {
+								break;
+							} else {
+								throw new Exception();
+							}
+						} catch (Exception e) {
+							System.out.println("\nWrong Input, Try Again!\n");
+						}
+					}
 				}
-				System.out.print("Enter Contact No., if not available press Enter: ");
-				String contact = br.readLine();
-				if (contact.length() == 0) {
-					contact = null;
+				while (true) {
+					System.out.print("Enter Contact No., if not available press Enter: ");
+					contact = br.readLine();
+					if (contact.length() == 0) {
+						contact = null;
+						break;
+					} else {
+						try {
+							if (contact.length() == 10 && Long.parseLong(contact) > 0) {
+								break;
+							} else {
+								throw new Exception();
+							}
+						} catch (Exception e) {
+							System.out.println("\nWrong Input, Try Again!\n");
+						}
+					}
 				}
 				user = new User(username, password, name, age, contact);
 				userInfo.put(user.getUsername(), user);
@@ -402,12 +457,8 @@ public class Test {
 		try {
 			if (System.getProperty("os.name").contains("Windows")) {
 				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-			} 
-            		else if(System.getProperty("os.name").contains("Linux")){
-                		System.out.print("\033\143");
-            		}
-            		else {
-				Runtime.getRuntime().exec("clear");
+			} else {
+				System.out.print("\033\143");
 			}
 		} catch (Exception e) {
 		}
