@@ -4,12 +4,12 @@ import java.util.HashMap;
 
 public class User {
 	
-	HashMap<Integer, Booking> bookingHistory;
+	private HashMap<Integer, Booking> bookingHistory;
 	protected String username;
 	private String password;
-	String name;
-	String age;
-	String contactNo;
+	private String name;
+	private String age;
+	private String contactNo;
 
 	//Called to create a new user
 	public User() {

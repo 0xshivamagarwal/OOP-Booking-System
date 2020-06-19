@@ -260,8 +260,14 @@ public class Driver {
 								if (startTime.length() == 5) {
 									try {
 										Integer.parseInt(startTime.split(":")[0]);
-										Integer.parseInt(startTime.split(":")[1]);
-										break;
+                                        Integer.parseInt(startTime.split(":")[1]);
+                                        if(Integer.parseInt(startTime.split(":")[0])>=0 && Integer.parseInt(startTime.split(":")[0]) < 24 &&
+                                                Integer.parseInt(startTime.split(":")[1])>=0 && Integer.parseInt(startTime.split(":")[1]) < 60){
+										    break;
+                                        }
+                                        else{
+                                            throw new Exception(); 
+                                        }
 									} catch (Exception e) {
 										System.out.println("Wrong Input, Try again\n");
 									}
@@ -270,10 +276,15 @@ public class Driver {
 								}
 							}
 							while (true) {
-								System.out.print("\nEnter number of hours you want to use the taxi: ");
+								System.out.print("\nEnter number of hours you want to use the taxi: (Maximum 100 hours) ");
 								try {
 									duration = Integer.parseInt(br.readLine());
-									break;
+									if(duration >0 && duration <= 100){
+                                        break;
+                                    }
+                                    else{
+                                        throw new Exception();
+                                    }
 								} catch (Exception e) {
 									System.out.println("Wrong Input, Try again\n");
 								}
@@ -402,7 +413,7 @@ public class Driver {
 						break;
 					} else {
 						try {
-							if (Integer.parseInt(age) > 0) {
+							if (Integer.parseInt(age) > 0 && Integer.parseInt(age) < 130) {
 								break;
 							} else {
 								throw new Exception();

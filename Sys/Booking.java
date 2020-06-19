@@ -2,14 +2,14 @@ package Sys;
 
 public class Booking {
 
-	String vtype;
-	int bookingId;
-	String companyName;
-	String source;
-	String destination;
-	String startTime;
-	String endTime;
-	int nSeats;
+	private String vtype;
+	private int bookingId;
+	private String companyName;
+	private String source;
+	private String destination;
+	private String startTime;
+	private String endTime;
+	private int nSeats;
 	
 	public Booking(int nSeats, String ... s) {
 		// String companyName, String source, String destination, String startTime, String endTime
