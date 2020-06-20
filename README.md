@@ -2,6 +2,11 @@
 
 Object Oriented Programming (CS F213) Project
 
+## Instructions
+
+* (I) Compile the Driver class (Driver.java) with the command "javac Driver.java"
+* (II) Run the Driver Bytecode using the command "java Driver"
+
 ## Problem Statement:
 
 Take any real life example and design a system (write down the code). The overall class structure should be logical. The names of variables, methods and classes should be lexically rational and should be accompanied with their description in the comments alongside. Your overall code will be something similar to the codes that you wrote in most of your lab hours. It goes without saying that the code should be well indented and should compile and run error free. However, do remember that a non-running code is better than a plagiarized one, and hence the latter one will be penalised heavily (may result in rescission of this component). In addition, Your code should be inclusive of the following. 
