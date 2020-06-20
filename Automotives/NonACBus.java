@@ -4,7 +4,7 @@ public interface NonACBus {
 	
 	double rate = 1.0; // Rs per Kilometer
 	
-	public static double getRate() {
+	public static double getRate() {//returns Rate
 		return NonACBus.rate;
 	}
 

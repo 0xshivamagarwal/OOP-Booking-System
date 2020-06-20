@@ -1,16 +1,25 @@
 package Sys;
-
+/*	This class implements the following specification from the Rubrik
+*	1. 	Constructor Overloading x 1 (Line 23)
+*	2.	Varargs Overloading x 2 (Line 23,35) 
+*/
 public class Booking {
 
-	private String vtype;
-	private int bookingId;
-	private String companyName;
-	private String source;
-	private String destination;
-	private String startTime;
-	private String endTime;
-	private int nSeats;
+	private String vtype;//Vechicle type(Bus or Taxi)
+	private int bookingId;//Unique Booking Id
+	private String companyName;//Name of the bus/taxi company
+	private String source;//Area of pickup
+	private String destination;//Area of drop
+	private String startTime;//Start Time 
+	private String endTime;//End time
+	private int nSeats;// Number of Seats booked
 	
+
+	/*
+	*	CONSTRUCTOR OVERLOADING
+	*/
+
+	//VARARGS OVERLOADING
 	public Booking(int nSeats, String ... s) {
 		// String companyName, String source, String destination, String startTime, String endTime
 		this.vtype = "Bus";
@@ -22,7 +31,7 @@ public class Booking {
 		this.endTime = s[4];
 		this.nSeats = nSeats;
 	}
-
+	//VARARGS OVERLOADING
 	public Booking(String ... s) {
 		// String companyName, String source, String startTime
 		this.vtype = "Taxi";
@@ -32,67 +41,67 @@ public class Booking {
 		this.startTime = s[2];
 	}
 	
-	public String getBookingType() {
+	public String getBookingType() {//return vechicle type
 		return this.vtype;
 	}
 	
-	public String getCompanyName() {
+	public String getCompanyName() {//return company name
 		return this.companyName;
 	}
 	
-	public void setCompanyName(String companyName) {
+	public void setCompanyName(String companyName) {//set company name
 		this.companyName = companyName;
 	}
 
-	public int getBookingId() {
+	public int getBookingId() {//return booking id
 		return this.bookingId;
 	}
 	
-	public void setBookingId(int bookingId) {
+	public void setBookingId(int bookingId) {//set booking id
 		this.bookingId = bookingId;
 	}
 	
-	public String getSource() {
+	public String getSource() {//return area of pickup
 		return this.source;
 	}
 	
-	public void setSource(String source) {
+	public void setSource(String source) {//set pickup area
 		this.source = source;
 	}
 	
-	public String getDestination() {
+	public String getDestination() {//return drop area
 		return this.destination;
 	}
 	
-	public void setDestination(String destination) {
+	public void setDestination(String destination) {//set drop area
 		this.destination = destination;
 	}
 	
-	public String getStartTime() {
+	public String getStartTime() {//return start time
 		return this.startTime;
 	}
 	
-	public void setStartTime(String startTime) {
+	public void setStartTime(String startTime) {//set start time
 		this.startTime = startTime;
 	}
 	
-	public String getEndTime() {
+	public String getEndTime() {//return end time
 		return this.endTime;
 	}
 	
-	public void setEndTime(String endTime) {
+	public void setEndTime(String endTime) {//set end time
 		this.endTime = endTime;
 	}
 	
-	public int getNSeats() {
+	public int getNSeats() {//return number of seats booked
 		return this.nSeats;
 	}
 	
-	public void setNSeats(int nSeats) {
+	public void setNSeats(int nSeats) {// set number of seats booked
 		this.nSeats = nSeats;
 	}
 
-	public String printDetails() {
+	public String printDetails() {//Print all details
 		if (this.vtype.compareTo("Bus") == 0) {
 			return String.format("Booking ID: %d\nBooking Type: %s\nBooking Company: %s\nSource: %s\nDeparture Time: %s\nDestination: %s\nArrival Time: %s\nNumber of Seats: %d",
 				this.bookingId, this.vtype, this.companyName, this.source, this.startTime, this.destination, this.endTime, this.nSeats);

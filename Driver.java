@@ -9,8 +9,15 @@ import Automotives.Bus;
 import Automotives.Taxi;
 import Automotives.Vehicle;
 
+/*	This class implements the following specification from the Rubrik
+* 	1.	Exception Handling x 8
+*/
+
 public class Driver {
 	public static void main(String[] args) throws IOException {
+		/*
+		*Main method glues together all objects of classes and implements a User Interface
+		*/
 		clearScreen();
 		HashMap<String, User> userInfo = new HashMap<String, User>();
 		HashMap<String, Vehicle> vehicleInfo = new HashMap<String, Vehicle>();
@@ -465,6 +472,9 @@ public class Driver {
 	}
 
 	public static void clearScreen() {
+		/*
+		*Used to clear screen after every input
+		*/
 		try {
 			if (System.getProperty("os.name").contains("Windows")) {
 				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();

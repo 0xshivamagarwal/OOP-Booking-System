@@ -1,14 +1,18 @@
+/*	This class implements the following specification from the Rubrik
+*	1. 	Abstract Class x 1
+*	2. 	Abstract Method x 1
+*/
 package Automotives;
 
 public abstract class Vehicle {
 
-	protected String companyName;
-	protected String vehicleID;
-	protected String source;
-	protected String destination;
-	protected String startTime;
-	protected String endTime;
-	protected boolean ac;
+	protected String companyName;//Company of the Vehicle
+	protected String vehicleID;//Licence plate of vehicle
+	protected String source;//Source of vehicle
+	protected String destination;//destination of vehicle
+	protected String startTime;//start time
+	protected String endTime;//end time
+	protected boolean ac;//ac or non ac
 	
 	public Vehicle(String vehicleID, String companyName, String source, String destination, String startTime, String endTime, boolean ac) {
 		this.vehicleID = vehicleID;
