@@ -19,7 +19,7 @@ Take any real life example and design a system (write down the code). The overal
 * (VI) Hierarchical Inheritance (atleast 1) -- (Vehicle, Bus, Taxi)
 * (VII) Multiple Inheritance (atleast 1) -- (Bus, ACBus, NonACBus)
 * (VIII) Abstract class (atleast 1, this is in addition to I above) -- (Vehicle)
-* (IX) Wrappers -- Double, Integer
+* (IX) Wrappers -- Double, Integer,Long
 * (X) Package -- (Automotives, Sys)
 * (XI) Exception handling (atleast two cases) -- 10 
 
